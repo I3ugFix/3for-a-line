@@ -32,15 +32,21 @@ class App extends Component {
     if(result == 'X') {
       this.setState({
         gameEnded: true,
-        winner: 'X'
+        winner: 'X',
+        winnerLine: 'Match is won by X'
       });
-      console.log('itSOver');
     } else if(result == 'O') {
       this.setState({
         gameEnded: true,
-        winner: 'O'
+        winner: 'O',
+        winnerLine: 'Match is won by O'
       });
-      console.log('itSOver');
+    } else if(result == 'draw') {
+      this.setState({
+        gameEnded: true,
+        winner: 'draw',
+        winnerLine: 'Match is drawn'
+      })
     }
 
   }
@@ -63,17 +69,21 @@ class App extends Component {
         return board[moves[i][0]];
     }
 
+    if(this.state.totalMovies == 9) {
+      return 'draw';
+    }
+
   }
     
   render() {
     return (
       <div id="game">
         <div id="head">
-          Some Game
+          Come out and Play
         </div>
         <div id="board" 
           onClick={(e)=>this.clicked(e)}
-        >
+          >
           <div className="square" data-square="0"></div>
           <div className="square" data-square="1"></div>
           <div className="square" data-square="2"></div>
@@ -84,6 +94,7 @@ class App extends Component {
           <div className="square" data-square="7"></div>
           <div className="square" data-square="8"></div>
         </div>
+        <div id="status">{this.state.winnerLine}</div>
       </div>
     );
   }
